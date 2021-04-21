@@ -28,16 +28,17 @@ public class User {
      * if the user is admin then the role will have value 2.
      */
 
-    public User(){}
+    public User(){
+        this.id = UUID.randomUUID();
+        this.signup_date = new Date();
+        this.isVerified = false;
+    }
 
     public User(String first_name, String last_name, String email, String username, byte role) {
-        this.id = UUID.randomUUID();
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.username = username;
-        this.signup_date = new Date();
-        this.isVerified = false;
         this.role = role;
     }
 

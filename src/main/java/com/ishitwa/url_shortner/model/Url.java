@@ -1,6 +1,7 @@
 package com.ishitwa.url_shortner.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 import java.util.UUID;
@@ -16,10 +17,9 @@ public class Url {
 	private Date expire_date;
 	private int days_remaining;
 
-	public Url(){}
+	public Url(){this.id=UUID.randomUUID();}
 
-	public Url(UUID id, String short_url, String long_url, UUID user_id, Date created_date, Date expire_date, int days_remaining) {
-		this.id = id;
+	public Url(String short_url, String long_url, UUID user_id, Date created_date, Date expire_date, int days_remaining) {
 		this.short_url = short_url;
 		this.long_url = long_url;
 		this.user_id = user_id;
