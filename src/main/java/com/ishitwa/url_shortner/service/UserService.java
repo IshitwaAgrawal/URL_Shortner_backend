@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserService {
 
@@ -18,5 +20,12 @@ public class UserService {
             return new ResponseEntity<>("success", HttpStatus.ACCEPTED);
         else
             return new ResponseEntity<>("fail",HttpStatus.NOT_FOUND);
+    }
+    public User getUser(UUID id){
+        return userRepo.getOne(id);
+    }
+
+    public void updateUser(User k){
+        userRepo.save(k);
     }
 }

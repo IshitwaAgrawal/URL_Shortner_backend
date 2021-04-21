@@ -105,4 +105,11 @@ public class User {
     public void setRole(byte role) {
         this.role = role;
     }
+
+    public void addUrl(Url url){
+        this.urls_list.add(url);
+    }
+    public void removeUrl(Url url){
+        this.urls_list.remove(url);
+    }
 }

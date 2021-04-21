@@ -1,9 +1,10 @@
 package com.ishitwa.url_shortner.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import net.bytebuddy.utility.RandomString;
+
+import javax.persistence.*;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 @Entity
@@ -12,20 +13,28 @@ public class Url {
 	private UUID id;
 	private String short_url;
 	private String long_url;
-	private UUID user_id;
+	@OneToOne(cascade = CascadeType.ALL)
+	private User user;
 	private Date created_date;
 	private Date expire_date;
-	private int days_remaining;
 
-	public Url(){this.id=UUID.randomUUID();}
+	public Url(){
+		this.id=UUID.randomUUID();
+		this.created_date=new Date();
+		int days_remaining=7;
+		this.expire_date=addDays(this.created_date,days_remaining);
+		this.short_url= RandomString.make(10);
+	}
 
-	public Url(String short_url, String long_url, UUID user_id, Date created_date, Date expire_date, int days_remaining) {
-		this.short_url = short_url;
-		this.long_url = long_url;
-		this.user_id = user_id;
-		this.created_date = created_date;
-		this.expire_date = expire_date;
-		this.days_remaining = days_remaining;
+	public Url(String url) {
+		this.long_url = url;
+	}
+
+	private static Date addDays(Date date,int days){
+		GregorianCalendar gregorianCalendar = new GregorianCalendar();
+		gregorianCalendar.setTime(date);
+		gregorianCalendar.add(gregorianCalendar.DATE,days);
+		return gregorianCalendar.getTime();
 	}
 
 	public UUID getId() {
@@ -52,12 +61,12 @@ public class Url {
 		this.long_url = long_url;
 	}
 
-	public UUID getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUser_id(UUID user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user=user;
 	}
 
 	public Date getCreated_date() {
@@ -74,13 +83,5 @@ public class Url {
 
 	public void setExpire_date(Date expire_date) {
 		this.expire_date = expire_date;
-	}
-
-	public int getDays_remaining() {
-		return days_remaining;
-	}
-
-	public void setDays_remaining(int days_remaining) {
-		this.days_remaining = days_remaining;
 	}
 }
