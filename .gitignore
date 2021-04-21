@@ -33,7 +33,7 @@ out/
 /nbdist/
 /.nb-gradle/
 
-./src/main/resources/url_shortner.mv.db
+src/main/resources/url_shortner.mv.db
 
 ### VS Code ###
 .vscode/
