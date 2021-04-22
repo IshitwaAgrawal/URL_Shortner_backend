@@ -1,6 +1,7 @@
 package com.ishitwa.url_shortner.model;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class User {
     private String password;
     private Date signup_date;
     private boolean isVerified;
-    private byte role;
+    private String roles;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Url> urls_list;
     private long createdUrls;
@@ -35,15 +36,15 @@ public class User {
         this.signup_date = new Date();
         this.isVerified = false;
         this.createdUrls=0;
+        roles="ROLE_USER";
     }
 
-    public User(String first_name, String last_name, String email, String username, String password, byte role) {
+    public User(String first_name, String last_name, String email, String username, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
     public UUID getId() {
@@ -102,12 +103,12 @@ public class User {
         isVerified = verified;
     }
 
-    public byte getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(byte role) {
-        this.role = role;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public void addUrl(Url url){
@@ -123,5 +124,13 @@ public class User {
 
     public void setCreatedUrls(long createdUrls) {
         this.createdUrls = createdUrls;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

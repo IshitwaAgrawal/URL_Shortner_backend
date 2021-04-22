@@ -35,4 +35,8 @@ public class UrlController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/hello")
+    public String authentication(){
+        return "<h1>Congo</h1>";
+    }
 }

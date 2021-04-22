@@ -35,6 +35,8 @@ out/
 
 src/main/resources/url_shortner.mv.db
 src/main/resources/url_shortner.trace.db
+src/main/resources/application.properties
+src/main/java/com/ishitwa/url_shortner/conig/SecurityConstants.java
 
 ### VS Code ###
 .vscode/
