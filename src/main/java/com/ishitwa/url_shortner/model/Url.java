@@ -3,6 +3,7 @@ package com.ishitwa.url_shortner.model;
 import net.bytebuddy.utility.RandomString;
 
 import javax.persistence.*;
+import java.net.URI;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
@@ -12,11 +13,12 @@ public class Url {
 	@Id
 	private UUID id;
 	private String short_url;
-	private String long_url;
+	private URI long_url;
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	private Date created_date;
 	private Date expire_date;
+	private long clicks;
 
 	public Url(){
 		this.id=UUID.randomUUID();
@@ -24,10 +26,11 @@ public class Url {
 		int days_remaining=7;
 		this.expire_date=addDays(this.created_date,days_remaining);
 		this.short_url= RandomString.make(10);
+		this.clicks=0;
 	}
 
-	public Url(String url) {
-		this.long_url = url;
+	public Url(String long_url) {
+		this.long_url = URI.create(long_url);
 	}
 
 	private static Date addDays(Date date,int days){
@@ -53,12 +56,12 @@ public class Url {
 		this.short_url = short_url;
 	}
 
-	public String getLong_url() {
+	public URI getLong_url() {
 		return long_url;
 	}
 
 	public void setLong_url(String long_url) {
-		this.long_url = long_url;
+		this.long_url = URI.create(long_url);
 	}
 
 	public User getUser() {
@@ -83,5 +86,17 @@ public class Url {
 
 	public void setExpire_date(Date expire_date) {
 		this.expire_date = expire_date;
+	}
+
+	public void setLong_url(URI long_url) {
+		this.long_url = long_url;
+	}
+
+	public long getClicks() {
+		return clicks;
+	}
+
+	public void setClicks(long clicks) {
+		this.clicks = clicks;
 	}
 }

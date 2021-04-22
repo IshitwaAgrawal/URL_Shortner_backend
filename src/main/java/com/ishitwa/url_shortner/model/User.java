@@ -16,11 +16,13 @@ public class User {
     private String last_name;
     private String email;
     private String username;
+    private String password;
     private Date signup_date;
     private boolean isVerified;
     private byte role;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Url> urls_list;
+    private long createdUrls;
 
     /**
      * There are only two roles : 1 for Normal User, 2 for Admin User.
@@ -32,13 +34,15 @@ public class User {
         this.id = UUID.randomUUID();
         this.signup_date = new Date();
         this.isVerified = false;
+        this.createdUrls=0;
     }
 
-    public User(String first_name, String last_name, String email, String username, byte role) {
+    public User(String first_name, String last_name, String email, String username, String password, byte role) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.username = username;
+        this.password = password;
         this.role = role;
     }
 
@@ -111,5 +115,13 @@ public class User {
     }
     public void removeUrl(Url url){
         this.urls_list.remove(url);
+    }
+
+    public long getCreatedUrls() {
+        return createdUrls;
+    }
+
+    public void setCreatedUrls(long createdUrls) {
+        this.createdUrls = createdUrls;
     }
 }

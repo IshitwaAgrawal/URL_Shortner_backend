@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.Map;
 import java.util.UUID;
 
@@ -24,12 +25,14 @@ public class UrlController {
                 new BigInteger(id.substring(16), 16).longValue());
         return urlService.registerNewUrl(url,uuid);
     }
-
     @GetMapping("/{url}")
-    public RedirectView getUrl(@PathVariable String url){
-        RedirectView redirectView = new RedirectView();
-        String u = urlService.getLongUrl(url).getBody();
-        redirectView.setUrl(u);
-        return redirectView;
+    public ResponseEntity<Void> redirect(@PathVariable String url){
+        try {
+            URI dest_url = urlService.getLongUrl(url);
+            return ResponseEntity.status(HttpStatus.FOUND).location(dest_url).build();
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
