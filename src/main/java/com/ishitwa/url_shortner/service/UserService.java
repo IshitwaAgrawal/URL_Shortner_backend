@@ -17,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -44,6 +47,13 @@ public class UserService implements UserDetailsService {
         if(user.getPassword().length() < SecurityConstants.PASSWORD_LENGTH)throw new PasswordLength(user.getPassword().length());
 
         try{
+            String emailPattern = "^([a-zA-Z0-9\\.-]+)@([a-zA-Z0-9-]+)\\.([a-zA-Z]{2,8})([a-zA-Z]{2,8})?$";
+            Pattern pattern = Pattern.compile(emailPattern);
+            String email = user.getEmail();
+            Matcher m = pattern.matcher(email);
+            if(!m.matches()){
+                throw new PatternSyntaxException("Email address not valid.",emailPattern,-1);
+            }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(user);
         }

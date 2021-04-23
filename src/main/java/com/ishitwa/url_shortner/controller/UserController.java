@@ -5,6 +5,7 @@ import com.ishitwa.url_shortner.model.AuthenticationResponse;
 import com.ishitwa.url_shortner.model.User;
 import com.ishitwa.url_shortner.service.UserService;
 import com.ishitwa.url_shortner.util.JwtUtil;
+import com.ishitwa.url_shortner.util.UtilFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -51,4 +54,5 @@ public class UserController {
         String token = jwtUtil.generateToken(userDetails);
         return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(token),HttpStatus.OK);
     }
+
 }

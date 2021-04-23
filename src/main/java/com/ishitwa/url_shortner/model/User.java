@@ -133,4 +133,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public List<Url> getUrls_list() {
+        return urls_list;
+    }
+
+    public void setUrls_list(List<Url> urls_list) {
+        this.urls_list = urls_list;
+    }
 }

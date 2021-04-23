@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface UrlRepo extends JpaRepository<Url, UUID> {
-
     @Query("select u from Url u where u.short_url=?1")
-    public Url getUrl(String short_url);
+    public Url findUrlByShort_url(String short_url);
+    public Url findUrlById(UUID id);
 }
