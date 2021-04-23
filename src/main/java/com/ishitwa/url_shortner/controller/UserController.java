@@ -22,16 +22,19 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtil jwtUtil;
 
     @PostMapping("/signup")
     public ResponseEntity<?> addUser(@RequestBody User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.registerUser(user);
+        try {
+            userService.registerUser(user);
+            return new ResponseEntity<>(user,HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/login")

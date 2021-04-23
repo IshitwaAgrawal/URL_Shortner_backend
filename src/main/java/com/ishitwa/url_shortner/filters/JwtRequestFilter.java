@@ -1,5 +1,6 @@
 package com.ishitwa.url_shortner.filters;
 
+import com.ishitwa.url_shortner.conig.SecurityConstants;
 import com.ishitwa.url_shortner.service.UserService;
 import com.ishitwa.url_shortner.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final String authorizationHeader = request.getHeader("Authorization");
+        final String authorizationHeader = request.getHeader(SecurityConstants.HEADER_STRING);
         String username = null;
         String jwt = null;
 
-        if(authorizationHeader!=null && authorizationHeader.startsWith("Bearer ")){
-            jwt = authorizationHeader.substring(7);
+        if(authorizationHeader!=null && authorizationHeader.startsWith(SecurityConstants.TOKEN_PREFIX)){
+            jwt = authorizationHeader.substring(SecurityConstants.TOKEN_PREFIX.length());
             username = jwtUtil.extractUsername(jwt);
         }
 

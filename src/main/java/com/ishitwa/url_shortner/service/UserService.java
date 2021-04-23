@@ -1,5 +1,10 @@
 package com.ishitwa.url_shortner.service;
 
+import com.ishitwa.url_shortner.Exceptions.EmailExists;
+import com.ishitwa.url_shortner.Exceptions.FieldsNotHaveValue;
+import com.ishitwa.url_shortner.Exceptions.PasswordLength;
+import com.ishitwa.url_shortner.Exceptions.UserExists;
+import com.ishitwa.url_shortner.conig.SecurityConstants;
 import com.ishitwa.url_shortner.model.User;
 import com.ishitwa.url_shortner.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,18 +23,34 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<?> registerUser(User user){
-        if(userRepo.save(user)!=null)
-            return new ResponseEntity<>("success", HttpStatus.ACCEPTED);
-        else {
-            //TODO Add different exceptions
-            //TODO Add User email verification service
-            return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
+    public void registerUser(User user)throws Exception{
+        if(user.getUsername()==null)throw new FieldsNotHaveValue("Username");
+
+        if(user.getEmail()==null)throw new FieldsNotHaveValue("Email");
+
+        if(user.getPassword()==null)throw new FieldsNotHaveValue("Password");
+
+        if(user.getFirst_name()==null)throw new FieldsNotHaveValue("First Name");
+
+        if(user.getLast_name()==null)throw new FieldsNotHaveValue("Last Name");
+
+        if(userRepo.findUserByUsername(user.getUsername()) != null)throw new UserExists(user.getUsername());
+
+        if(userRepo.findUserByEmail(user.getEmail()) != null)throw new EmailExists(user.getEmail());
+
+        if(user.getPassword().length() < SecurityConstants.PASSWORD_LENGTH)throw new PasswordLength(user.getPassword().length());
+
+        try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepo.save(user);
+        }
+        catch (Exception e){
+            throw e;
         }
     }
-
-    //TODO Add login service
 
     public User getUser(UUID id){
         return userRepo.getOne(id);
