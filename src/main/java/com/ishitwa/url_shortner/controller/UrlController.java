@@ -25,16 +25,7 @@ public class UrlController {
                 new BigInteger(id.substring(16), 16).longValue());
         return urlService.registerNewUrl(url,uuid);
     }
-    @GetMapping("/{url}")
-    public ResponseEntity<Void> redirect(@PathVariable String url){
-        try {
-            URI dest_url = urlService.getLongUrl(url);
-            return ResponseEntity.status(HttpStatus.FOUND).location(dest_url).build();
-        }
-        catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+
     @GetMapping("/hello")
     public String authentication(){
         return "<h1>Congo</h1>";
