@@ -78,4 +78,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/verify/{token}")
+    public ResponseEntity<?> verifyUser(@PathVariable String token){
+        try {
+            User u = userService.findUserByVerificationToken(token);
+            u.setVerified(true);
+            userService.updateUser(u);
+            return new ResponseEntity<>("Verified Successfully!",HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

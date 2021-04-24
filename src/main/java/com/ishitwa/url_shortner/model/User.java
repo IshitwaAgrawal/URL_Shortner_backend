@@ -1,6 +1,7 @@
 package com.ishitwa.url_shortner.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.bytebuddy.utility.RandomString;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
@@ -27,6 +28,7 @@ public class User {
     @JsonIgnore
     private List<Url> urls_list;
     private long createdUrls;
+    private String verificationToken;
 
     /**
      * There are only two roles : 1 for Normal User, 2 for Admin User.
@@ -40,6 +42,7 @@ public class User {
         this.isVerified = false;
         this.createdUrls=0;
         roles="ROLE_USER";
+        this.verificationToken = RandomString.make(20);
     }
 
     public User(String first_name, String last_name, String email, String username, String password) {
@@ -143,5 +146,13 @@ public class User {
 
     public void setUrls_list(List<Url> urls_list) {
         this.urls_list = urls_list;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
     }
 }

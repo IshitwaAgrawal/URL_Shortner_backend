@@ -28,6 +28,8 @@ public class UserService implements UserDetailsService {
     UserRepo userRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    VerificationMail verificationMail;
 
     public void registerUser(User user)throws Exception{
         if(user.getUsername()==null)throw new FieldsNotHaveValue("Username");
@@ -54,6 +56,7 @@ public class UserService implements UserDetailsService {
             if(!m.matches()){
                 throw new PatternSyntaxException("Email address not valid.",emailPattern,-1);
             }
+            verificationMail.sendVerificationMail(user);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(user);
         }
@@ -78,6 +81,16 @@ public class UserService implements UserDetailsService {
         }
         catch (Exception e){
             throw e;
+        }
+    }
+
+    public User findUserByVerificationToken(String token){
+        try{
+            User u = userRepo.findUserByVerificationToken(token);
+            return u;
+        }
+        catch (Exception e){
+            return null;
         }
     }
 
