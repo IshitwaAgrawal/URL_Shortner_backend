@@ -12,7 +12,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     private String username;
     private String password;
-    private String[] roles={"ROLE_USER","ROLE_ADMIN"};
+    private final String[] roles={"ROLE_USER","ROLE_ADMIN"};
     private boolean isVerified;
     private List<GrantedAuthority> authorities;
 
