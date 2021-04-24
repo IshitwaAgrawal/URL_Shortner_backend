@@ -44,20 +44,13 @@ public class UrlService {
     public ResponseEntity<?> deleteUrl(UUID urlId){
         try{
             Url url = urlRepo.findUrlById(urlId);
+            User user = url.getUser();
+            user.getUrls_list().remove(url);
+            user.setCreatedUrls((user.getCreatedUrls()-1)>0?(user.getCreatedUrls()-1):0);
+            userService.updateUser(user);
+            url.setUser(null);
             urlRepo.delete(url);
-            return new ResponseEntity<>("URL Successfully Deleted",HttpStatus.OK);
-        }
-        catch (Exception e){
-            throw e;
-        }
-    }
-
-    public ResponseEntity<?> getAllUrls(UUID uuid)throws Exception{
-        try{
-            User u = userService.getUser(uuid);
-            UserUrls userUrls = new UserUrls();
-            userUrls.setUserUrls(u.getUrls_list());
-            return new ResponseEntity<>(userUrls,HttpStatus.OK);
+            return new ResponseEntity<>(user.getUrls_list(),HttpStatus.OK);
         }
         catch (Exception e){
             throw e;
@@ -67,6 +60,7 @@ public class UrlService {
     public void updateUrl(Url url){
         urlRepo.save(url);
     }
+
 
     public URI getLongUrl(String url)throws Exception{
         Url k = urlRepo.findUrlByShort_url(url);

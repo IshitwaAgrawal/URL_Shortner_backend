@@ -1,5 +1,7 @@
 package com.ishitwa.url_shortner.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.lang.reflect.Array;
 import java.util.Date;
@@ -22,6 +24,7 @@ public class User {
     private boolean isVerified;
     private String roles;
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Url> urls_list;
     private long createdUrls;
 

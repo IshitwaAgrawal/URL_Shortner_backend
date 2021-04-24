@@ -1,5 +1,6 @@
 package com.ishitwa.url_shortner.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.utility.RandomString;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Url {
 	private String short_url;
 	private URI long_url;
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private User user;
 	private Date created_date;
 	private Date expire_date;

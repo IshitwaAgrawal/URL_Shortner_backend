@@ -30,19 +30,4 @@ public class UrlController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/getAllUrls/{id}")
-    public ResponseEntity<?> getAllUrls(@PathVariable String id)throws Exception{
-        UUID uuid = UtilFunctions.getUUID(id);
-        try{
-            return urlService.getAllUrls(uuid);
-        }
-        catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping("/hello")
-    public String authentication(){
-        return "<h1>Congo</h1>";
-    }
 }

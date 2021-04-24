@@ -63,11 +63,22 @@ public class UserService implements UserDetailsService {
     }
 
     public User getUser(UUID id){
-        return userRepo.getOne(id);
+        return userRepo.findUserById(id);
     }
 
     public void updateUser(User k){
         userRepo.save(k);
+    }
+
+    public ResponseEntity<?> deleteUser(UUID uuid){
+        try{
+            User user = userRepo.findUserById(uuid);
+            userRepo.delete(user);
+            return new ResponseEntity<>("User successfully deleted!",HttpStatus.OK);
+        }
+        catch (Exception e){
+            throw e;
+        }
     }
 
     @Override

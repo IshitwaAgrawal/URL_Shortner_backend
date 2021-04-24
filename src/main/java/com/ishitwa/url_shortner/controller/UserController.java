@@ -55,4 +55,27 @@ public class UserController {
         return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(token),HttpStatus.OK);
     }
 
+    @GetMapping("/getAllUrls/{id}")
+    public ResponseEntity<?> getUserUrls(@PathVariable String id){
+        try {
+            UUID uuid = UtilFunctions.getUUID(id);
+            User user = userService.getUser(uuid);
+            return new ResponseEntity<>(user.getUrls_list(), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id){
+        try{
+            UUID uuid = UtilFunctions.getUUID(id);
+            return userService.deleteUser(uuid);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
