@@ -21,7 +21,7 @@ public class UrlService {
     UrlRepo urlRepo;
     @Autowired
     UserService userService;
-    public ResponseEntity<?> registerNewUrl(Url url, UUID user_id){
+    public ResponseEntity<?> registerNewUrl(Url url, UUID user_id)throws Exception{
         try{
             String u = url.getLong_url().toString();
             if(!u.substring(0,8).equals("https://")){
@@ -34,10 +34,10 @@ public class UrlService {
             k.setCreatedUrls(k.getCreatedUrls()+1);
             userService.updateUser(k);
             urlRepo.save(url);
-            return new ResponseEntity<>("success", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(k, HttpStatus.OK);
         }
         catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw e;
         }
     }
 

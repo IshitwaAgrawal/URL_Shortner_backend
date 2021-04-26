@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -36,7 +35,7 @@ public class UserController {
             return new ResponseEntity<>(user,HttpStatus.OK);
         }
         catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
     }
 
@@ -48,22 +47,24 @@ public class UserController {
             );
         }
         catch (BadCredentialsException e){
-            return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
         final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getUsername());
+        User u = userService.getUser(userDetails.getUsername());
         String token = jwtUtil.generateToken(userDetails);
-        return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(token),HttpStatus.OK);
+        return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(token,u),HttpStatus.OK);
     }
 
     @GetMapping("/getAllUrls/{id}")
     public ResponseEntity<?> getUserUrls(@PathVariable String id){
         try {
             UUID uuid = UtilFunctions.getUUID(id);
+//            UUID uuid = UtilFunctions.getUUID2(id);
             User user = userService.getUser(uuid);
             return new ResponseEntity<>(user.getUrls_list(), HttpStatus.OK);
         }
         catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
     }
 
@@ -74,7 +75,7 @@ public class UserController {
             return userService.deleteUser(uuid);
         }
         catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
     }
 
@@ -87,7 +88,7 @@ public class UserController {
             return new ResponseEntity<>("Verified Successfully!",HttpStatus.OK);
         }
         catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
     }
 

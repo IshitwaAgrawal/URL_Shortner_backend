@@ -32,15 +32,15 @@ public class UserService implements UserDetailsService {
     VerificationMail verificationMail;
 
     public void registerUser(User user)throws Exception{
-        if(user.getUsername()==null)throw new FieldsNotHaveValue("Username");
+        if(user.getUsername()==null || user.getUsername()=="")throw new FieldsNotHaveValue("Username");
 
-        if(user.getEmail()==null)throw new FieldsNotHaveValue("Email");
+        if(user.getEmail()==null || user.getEmail()=="")throw new FieldsNotHaveValue("Email");
 
-        if(user.getPassword()==null)throw new FieldsNotHaveValue("Password");
+        if(user.getPassword()==null || user.getPassword()=="")throw new FieldsNotHaveValue("Password");
 
-        if(user.getFirst_name()==null)throw new FieldsNotHaveValue("First Name");
+        if(user.getFirst_name()==null || user.getFirst_name()=="")throw new FieldsNotHaveValue("First Name");
 
-        if(user.getLast_name()==null)throw new FieldsNotHaveValue("Last Name");
+        if(user.getLast_name()==null || user.getLast_name()=="")throw new FieldsNotHaveValue("Last Name");
 
         if(userRepo.findUserByUsername(user.getUsername()) != null)throw new UserExists(user.getUsername());
 
@@ -68,6 +68,7 @@ public class UserService implements UserDetailsService {
     public User getUser(UUID id){
         return userRepo.findUserById(id);
     }
+    public User getUser(String username){return userRepo.findUserByUsername(username);}
 
     public void updateUser(User k){
         userRepo.save(k);

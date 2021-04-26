@@ -16,9 +16,14 @@ public class UrlController {
     @Autowired
     UrlService urlService;
     @PostMapping("/createNewUrl/{id}")
-    public ResponseEntity<?> registerUrl(@RequestBody Url url, @PathVariable String id){
+    public ResponseEntity<?> registerUrl(@RequestBody Url url, @PathVariable String id)throws Exception{
         UUID uuid = UtilFunctions.getUUID(id);
-        return urlService.registerNewUrl(url,uuid);
+        try{
+            return new ResponseEntity<>(urlService.registerNewUrl(url,uuid),HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
     }
     @GetMapping("/deleteUrl/{id}")
     public ResponseEntity<?> deleteUrl(@PathVariable String id){
