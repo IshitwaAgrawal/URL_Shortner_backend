@@ -6,7 +6,7 @@ public class SecurityConstants {
     public static final int PASSWORD_LENGTH = 5;
     public static final String HEADER_STRING = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer ";
-    public static String hostUrl = "http://localhost:80";
+    public static String hostUrl = "http://165.232.178.69:1234";
     public static String smtp="smtp.gmail.com";
     public static int port=587;
     public static String email="noreply10620@gmail.com";
