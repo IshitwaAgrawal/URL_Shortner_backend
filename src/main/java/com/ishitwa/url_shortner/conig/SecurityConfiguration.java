@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/api/login","/api/signup","/url/**","/h2-console/**","/api/verify/**").permitAll()
+                .antMatchers("/api/login","/api/signup","/url/**","/h2-console/**","/api/verify/**","/newTelegramUrl/**").permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

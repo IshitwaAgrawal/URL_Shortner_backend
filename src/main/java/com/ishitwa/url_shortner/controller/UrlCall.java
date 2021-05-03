@@ -1,5 +1,6 @@
 package com.ishitwa.url_shortner.controller;
 
+import com.ishitwa.url_shortner.service.TelegramUrlService;
 import com.ishitwa.url_shortner.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,10 @@ public class UrlCall {
     public ResponseEntity<Void> redirect(@PathVariable String url){
         try {
             URI dest_url = urlService.getLongUrl(url);
-            return ResponseEntity.status(HttpStatus.FOUND).location(dest_url).build();
+            return ResponseEntity.status(HttpStatus.OK).location(dest_url).build();
         }
         catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
