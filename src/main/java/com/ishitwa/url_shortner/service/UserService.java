@@ -4,7 +4,7 @@ import com.ishitwa.url_shortner.Exceptions.EmailExists;
 import com.ishitwa.url_shortner.Exceptions.FieldsNotHaveValue;
 import com.ishitwa.url_shortner.Exceptions.PasswordLength;
 import com.ishitwa.url_shortner.Exceptions.UserExists;
-import com.ishitwa.url_shortner.conig.SecurityConstants;
+import com.ishitwa.url_shortner.config.SecurityConstants;
 import com.ishitwa.url_shortner.model.User;
 import com.ishitwa.url_shortner.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;

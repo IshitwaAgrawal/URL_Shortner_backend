@@ -1,11 +1,10 @@
 package com.ishitwa.url_shortner.filters;
 
-import com.ishitwa.url_shortner.conig.SecurityConstants;
+import com.ishitwa.url_shortner.config.SecurityConstants;
 import com.ishitwa.url_shortner.service.UserService;
 import com.ishitwa.url_shortner.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;

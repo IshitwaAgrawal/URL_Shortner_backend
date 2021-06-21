@@ -1,6 +1,6 @@
 package com.ishitwa.url_shortner.service;
 
-import com.ishitwa.url_shortner.conig.SecurityConstants;
+import com.ishitwa.url_shortner.config.SecurityConstants;
 import com.ishitwa.url_shortner.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,4 @@
-package com.ishitwa.url_shortner.conig;
-
-import org.springframework.beans.factory.annotation.Value;
+package com.ishitwa.url_shortner.config;
 
 public class SecurityConstants {
     public static final String SECRET = "secret";

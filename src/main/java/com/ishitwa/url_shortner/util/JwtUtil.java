@@ -1,10 +1,9 @@
 package com.ishitwa.url_shortner.util;
 
-import com.ishitwa.url_shortner.conig.SecurityConstants;
+import com.ishitwa.url_shortner.config.SecurityConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
