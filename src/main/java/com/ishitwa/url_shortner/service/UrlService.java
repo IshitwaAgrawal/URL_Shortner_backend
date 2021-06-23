@@ -2,17 +2,13 @@ package com.ishitwa.url_shortner.service;
 
 import com.ishitwa.url_shortner.model.Url;
 import com.ishitwa.url_shortner.model.User;
-import com.ishitwa.url_shortner.model.UserUrls;
 import com.ishitwa.url_shortner.repository.UrlRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.net.URI;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -34,7 +30,7 @@ public class UrlService {
             k.setCreatedUrls(k.getCreatedUrls()+1);
             userService.updateUser(k);
             urlRepo.save(url);
-            return new ResponseEntity<>(k, HttpStatus.OK);
+            return new ResponseEntity<>(k.getUrls_list(), HttpStatus.OK);
         }
         catch (Exception e){
             throw e;
@@ -64,8 +60,21 @@ public class UrlService {
 
     public URI getLongUrl(String url)throws Exception{
         Url k = urlRepo.findUrlByShort_url(url);
+//        this.increment(k.getId());
+        return k.getLong_url();
+    }
+
+    public void increment(UUID id)throws Exception{
+        Url k= urlRepo.findUrlById(id);
         k.setClicks(k.getClicks()+1);
         updateUrl(k);
-        return k.getLong_url();
+    }
+
+    public Url getUrlFromId(UUID id){
+        try{
+            return urlRepo.findUrlById(id);
+        }catch (Exception e){
+            return null;
+        }
     }
 }

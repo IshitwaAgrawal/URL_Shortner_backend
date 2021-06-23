@@ -2,12 +2,14 @@ package com.ishitwa.url_shortner.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
 
 @Entity
 public class User {

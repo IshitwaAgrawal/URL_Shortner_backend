@@ -2,6 +2,7 @@ package com.ishitwa.url_shortner.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.net.URI;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
+@Transactional
 @Entity
 public class Url {
 	@Id
@@ -100,5 +102,18 @@ public class Url {
 
 	public void setClicks(long clicks) {
 		this.clicks = clicks;
+	}
+
+	@Override
+	public String toString() {
+		return "Url{" +
+				"id=" + id +
+				", short_url='" + short_url + '\'' +
+				", long_url=" + long_url +
+				", user=" + user +
+				", created_date=" + created_date +
+				", expire_date=" + expire_date +
+				", clicks=" + clicks +
+				'}';
 	}
 }
