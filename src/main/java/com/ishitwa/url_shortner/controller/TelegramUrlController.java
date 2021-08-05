@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
+@RequestMapping("/telegram")
 public class TelegramUrlController {
 
     @Autowired
     TelegramUrlService telegramUrlService;
 
-    @PostMapping("/newTelegramUrl")
+    @PostMapping("/new")
     public ResponseEntity<?> createNewUrl(@RequestBody TelegramUrl url){
         try{
             telegramUrlService.createNewUrl(url);
@@ -25,7 +26,7 @@ public class TelegramUrlController {
         }
     }
 
-    @GetMapping("/url/new/{url}")
+    @GetMapping("/url/{url}")
     public ResponseEntity<Void> redirect(@PathVariable String url){
         try{
             URI dest_url = telegramUrlService.getLongUrl(url);

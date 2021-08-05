@@ -1,6 +1,7 @@
 package com.ishitwa.url_shortner.config;
 
 import com.ishitwa.url_shortner.filters.JwtRequestFilter;
+import io.swagger.models.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -59,6 +60,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
 
         http.headers().frameOptions().disable();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().mvcMatchers(String.valueOf(HttpMethod.OPTIONS), "/**");
+        // ignore swagger
+        web.ignoring().mvcMatchers("/swagger-ui.html/**", "/configuration/**", "/swagger-resources/**", "/v2/api-docs");
     }
 
     @Override
