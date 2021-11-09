@@ -26,12 +26,11 @@ public class UrlController {
 
 
     @Autowired
-    UrlService urlService;
+    private UrlService urlService;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    SimpMessagingTemplate messagingTemplate;
-
+    private SimpMessagingTemplate messagingTemplate;
 
 
     @PostMapping("/createNewUrl/{id}")
