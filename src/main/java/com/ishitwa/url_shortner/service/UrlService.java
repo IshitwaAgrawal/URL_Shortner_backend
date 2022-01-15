@@ -60,7 +60,6 @@ public class UrlService {
 
     public URI getLongUrl(String url)throws Exception{
         Url k = urlRepo.findUrlByShort_url(url);
-        this.increment(k.getId());
         return k.getLong_url();
     }
 
