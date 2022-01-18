@@ -9,6 +9,6 @@ public class SecurityConstants {
     public static String hostUrl = "http://localhost:3000/";
     public static String smtp="smtp.gmail.com";
     public static int port=587;
-    public static String email="noreply10620@gmail.com";
-    public static String password="stevejobs21";
+    public static String email="";
+    public static String password="";
 }
