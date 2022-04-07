@@ -40,7 +40,7 @@ public class User {
     public User(){
         this.id = UUID.randomUUID();
         this.signup_date = new Date();
-        this.isVerified = false;
+        this.isVerified = true;
         this.createdUrls=0;
         roles="ROLE_USER";
         this.verificationToken = RandomString.make(20);

@@ -30,9 +30,11 @@ import java.util.regex.PatternSyntaxException;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    UserRepo userRepo;
+    private UserRepo userRepo;
     @Autowired
-    VerificationMail verificationMail;
+    private VerificationMail verificationMail;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void registerUser(User user)throws Exception{
         if(user.getUsername()==null || user.getUsername()=="")throw new FieldsNotHaveValue("Username");
@@ -52,7 +54,6 @@ public class UserService implements UserDetailsService {
         if(user.getPassword().length() < SecurityConstants.PASSWORD_LENGTH)throw new PasswordLength(user.getPassword().length());
 
         try{
-            PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
             String emailPattern = "^([a-zA-Z0-9\\.-]+)@([a-zA-Z0-9-]+)\\.([a-zA-Z]{2,8})([a-zA-Z]{2,8})?$";
             Pattern pattern = Pattern.compile(emailPattern);
             String email = user.getEmail();
@@ -60,7 +61,7 @@ public class UserService implements UserDetailsService {
             if(!m.matches()){
                 throw new PatternSyntaxException("Email address not valid.",emailPattern,-1);
             }
-            verificationMail.sendVerificationMail(user);
+//            verificationMail.sendVerificationMail(user);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepo.save(user);
         }
