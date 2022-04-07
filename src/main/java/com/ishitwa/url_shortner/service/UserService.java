@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -105,5 +106,10 @@ public class UserService implements UserDetailsService {
         User u = userRepo.findUserByUsername(username);
         com.ishitwa.url_shortner.model.UserDetails userDetails = new com.ishitwa.url_shortner.model.UserDetails(u);
         return userDetails;
+    }
+
+    public int getUserCount(){
+        List<User> users=userRepo.findAll();
+        return users.size();
     }
 }

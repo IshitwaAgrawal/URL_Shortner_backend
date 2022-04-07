@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -89,6 +90,16 @@ public class UserController {
         }
         catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
+    }
+
+    @GetMapping("/getUserCount")
+    public int getUserCount(){
+        try{
+            return userService.getUserCount();
+        }
+        catch (Exception e){
+            return 0;
         }
     }
 
