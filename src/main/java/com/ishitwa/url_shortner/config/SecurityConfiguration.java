@@ -41,12 +41,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
@@ -74,31 +68,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+//    @Bean
+//    public JavaMailSender getJavaMailSender(){
+//        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//        mailSender.setHost(SecurityConstants.smtp);
+//        mailSender.setPort(SecurityConstants.port);
+//        mailSender.setUsername(SecurityConstants.email);
+//        mailSender.setPassword(SecurityConstants.password);
+//
+//        Properties props = mailSender.getJavaMailProperties();
+//        props.put("mail.transport.protocol","smtp");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.debug", "true");
+//
+//        return mailSender;
+//    }
 
-    @Bean
-    public JavaMailSender getJavaMailSender(){
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(SecurityConstants.smtp);
-        mailSender.setPort(SecurityConstants.port);
-        mailSender.setUsername(SecurityConstants.email);
-        mailSender.setPassword(SecurityConstants.password);
-
-        Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol","smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
-
-        return mailSender;
-    }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer(){
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**");
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer(){
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**");
+//            }
+//        };
+//    }
 }

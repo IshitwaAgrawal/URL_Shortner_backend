@@ -8,14 +8,19 @@ import com.ishitwa.url_shortner.config.SecurityConstants;
 import com.ishitwa.url_shortner.model.User;
 import com.ishitwa.url_shortner.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Properties;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,8 +31,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepo userRepo;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     @Autowired
     VerificationMail verificationMail;
 
@@ -49,6 +52,7 @@ public class UserService implements UserDetailsService {
         if(user.getPassword().length() < SecurityConstants.PASSWORD_LENGTH)throw new PasswordLength(user.getPassword().length());
 
         try{
+            PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
             String emailPattern = "^([a-zA-Z0-9\\.-]+)@([a-zA-Z0-9-]+)\\.([a-zA-Z]{2,8})([a-zA-Z]{2,8})?$";
             Pattern pattern = Pattern.compile(emailPattern);
             String email = user.getEmail();

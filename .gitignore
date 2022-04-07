@@ -1,9 +1,16 @@
 HELP.md
+<<<<<<< HEAD
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+=======
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+>>>>>>> 336829e (changed java version)
 
 ### STS ###
 .apt_generated
@@ -13,18 +20,24 @@ build/
 .settings
 .springBeans
 .sts4-cache
+<<<<<<< HEAD
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+=======
+>>>>>>> 336829e (changed java version)
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+<<<<<<< HEAD
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+=======
+>>>>>>> 336829e (changed java version)
 
 ### NetBeans ###
 /nbproject/private/
@@ -32,11 +45,17 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
+<<<<<<< HEAD
 
 src/main/resources/url_shortner.mv.db
 src/main/resources/url_shortner.trace.db
 src/main/resources/application.properties
 #src/main/java/com/ishitwa/url_shortner/conig/SecurityConstants.java
+=======
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+>>>>>>> 336829e (changed java version)
 
 ### VS Code ###
 .vscode/
