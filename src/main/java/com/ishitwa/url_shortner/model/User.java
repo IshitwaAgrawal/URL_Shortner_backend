@@ -2,6 +2,7 @@ package com.ishitwa.url_shortner.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-@Entity
+@Document("User")
 public class User {
     @Id
     private UUID id;

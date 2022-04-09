@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -20,7 +21,7 @@ import java.util.Properties;
 
 @EnableAsync
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = {UserRepo.class, UrlRepo.class})
+@EnableMongoRepositories
 public class UrlShortnerApplication {
     public static void main(String[] args) {
         SpringApplication.run(UrlShortnerApplication.class, args);

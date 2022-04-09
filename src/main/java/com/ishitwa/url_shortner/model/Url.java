@@ -2,6 +2,7 @@ package com.ishitwa.url_shortner.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -11,11 +12,11 @@ import java.util.GregorianCalendar;
 import java.util.UUID;
 
 @Transactional
-@Entity
+@Document("Url")
 public class Url {
 	@Id
 	private UUID id;
-	private String short_url;
+	private String shortUrl;
 	private URI long_url;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -29,7 +30,7 @@ public class Url {
 		this.created_date=new Date();
 		int days_remaining=7;
 		this.expire_date=addDays(this.created_date,days_remaining);
-		this.short_url= RandomString.make(10);
+		this.shortUrl = RandomString.make(10);
 		this.clicks=0;
 	}
 
@@ -52,12 +53,12 @@ public class Url {
 		this.id = id;
 	}
 
-	public String getShort_url() {
-		return short_url;
+	public String getShortUrl() {
+		return shortUrl;
 	}
 
-	public void setShort_url(String short_url) {
-		this.short_url = short_url;
+	public void setShortUrl(String shortUrl) {
+		this.shortUrl = shortUrl;
 	}
 
 	public URI getLong_url() {
@@ -108,7 +109,7 @@ public class Url {
 	public String toString() {
 		return "Url{" +
 				"id=" + id +
-				", short_url='" + short_url + '\'' +
+				", short_url='" + shortUrl + '\'' +
 				", long_url=" + long_url +
 				", user=" + user +
 				", created_date=" + created_date +

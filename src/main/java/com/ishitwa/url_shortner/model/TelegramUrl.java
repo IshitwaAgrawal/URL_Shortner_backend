@@ -1,6 +1,7 @@
 package com.ishitwa.url_shortner.model;
 
 import net.bytebuddy.utility.RandomString;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,7 +9,7 @@ import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
+@Document("telegramUrl")
 public class TelegramUrl {
 
     @Id
