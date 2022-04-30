@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-@Transactional
 @Document("Url")
 public class Url {
 	@Id

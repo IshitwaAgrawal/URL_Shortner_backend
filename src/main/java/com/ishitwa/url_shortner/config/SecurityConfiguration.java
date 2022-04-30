@@ -56,12 +56,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers(String.valueOf(HttpMethod.OPTIONS), "/**");
-        // ignore swagger
-        web.ignoring().mvcMatchers("/swagger-ui.html/**", "/configuration/**", "/swagger-resources/**", "/v2/api-docs");
-    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().mvcMatchers(String.valueOf(HttpMethod.OPTIONS), "/**");
+//        // ignore swagger
+//        web.ignoring().mvcMatchers("/swagger-ui.html/**", "/configuration/**", "/swagger-resources/**", "/v2/api-docs");
+//    }
 
     @Override
     @Bean
