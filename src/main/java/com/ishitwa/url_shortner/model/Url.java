@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Url {
 	@Id
 	private UUID id;
-	private String shortUrl;
+	private String short_url;
 	private URI long_url;
 	private Date created_date;
 	private Date expire_date;
@@ -26,7 +26,7 @@ public class Url {
 		this.created_date=new Date();
 		int days_remaining=7;
 		this.expire_date=addDays(this.created_date,days_remaining);
-		this.shortUrl = RandomString.make(10);
+		this.short_url = RandomString.make(10);
 		this.clicks=0;
 	}
 
@@ -50,11 +50,11 @@ public class Url {
 	}
 
 	public String getShortUrl() {
-		return shortUrl;
+		return short_url;
 	}
 
 	public void setShortUrl(String shortUrl) {
-		this.shortUrl = shortUrl;
+		this.short_url = shortUrl;
 	}
 
 	public URI getLong_url() {
@@ -97,7 +97,7 @@ public class Url {
 	public String toString() {
 		return "Url{" +
 				"id=" + id +
-				", short_url='" + shortUrl + '\'' +
+				", short_url='" + short_url + '\'' +
 				", long_url=" + long_url +
 				", created_date=" + created_date +
 				", expire_date=" + expire_date +
