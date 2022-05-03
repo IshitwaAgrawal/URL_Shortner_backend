@@ -9,14 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class UrlService {
     @Autowired
-    UrlRepo urlRepo;
+    private UrlRepo urlRepo;
     @Autowired
-    UserService userService;
+    private UserService userService;
+    @Autowired
+    private UserUrlService userUrlService;
     public ResponseEntity<?> registerNewUrl(Url url, UUID user_id)throws Exception{
         try{
             String u = url.getLong_url().toString();
@@ -25,12 +29,13 @@ public class UrlService {
                 url.setLong_url(u);
             }
             User k = userService.getUser(user_id);
-            url.setUser(k);
-            k.addUrl(url);
+//            url.setUser(k);
+//            k.addUrl(url);
             k.setCreatedUrls(k.getCreatedUrls()+1);
             userService.updateUser(k);
             urlRepo.save(url);
-            return new ResponseEntity<>(k.getUrls_list(), HttpStatus.OK);
+            userUrlService.addNewEntry(user_id,url.getId());
+            return new ResponseEntity<>(getUrlsList(user_id), HttpStatus.OK);
         }
         catch (Exception e){
             throw e;
@@ -40,13 +45,14 @@ public class UrlService {
     public ResponseEntity<?> deleteUrl(UUID urlId){
         try{
             Url url = urlRepo.findUrlById(urlId);
-            User user = url.getUser();
-            user.getUrls_list().remove(url);
+            User user=userService.getUser(userUrlService.findUserFromUrl(urlId));
+//            user.getUrls_list().remove(url);
             user.setCreatedUrls((user.getCreatedUrls()-1)>0?(user.getCreatedUrls()-1):0);
             userService.updateUser(user);
-            url.setUser(null);
+//            url.setUser(null);
             urlRepo.delete(url);
-            return new ResponseEntity<>(user.getUrls_list(),HttpStatus.OK);
+            userUrlService.deleteUrl(urlId);
+            return new ResponseEntity<>(getUrlsList(user.getId()),HttpStatus.OK);
         }
         catch (Exception e){
             throw e;
@@ -75,5 +81,14 @@ public class UrlService {
         }catch (Exception e){
             return null;
         }
+    }
+
+    public List<Url> getUrlsList(UUID userId) {
+        List<Url> urls=new ArrayList<>();
+        List<UUID> uuid=userUrlService.findUrlsByUserId(userId);
+        for(UUID id:uuid){
+            urls.add(getUrlFromId(id));
+        }
+        return urls;
     }
 }

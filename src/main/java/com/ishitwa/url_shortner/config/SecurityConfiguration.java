@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/ws/**").permitAll()
                 .antMatchers("/api1/url/**","/api/login","/api/signup","/url/**","/h2-console/**","/api/verify/**","/newTelegramUrl/**").permitAll()
-                .anyRequest().authenticated().and()
+                .anyRequest().permitAll().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

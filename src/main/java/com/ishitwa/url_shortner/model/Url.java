@@ -17,9 +17,6 @@ public class Url {
 	private UUID id;
 	private String shortUrl;
 	private URI long_url;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
-	private User user;
 	private Date created_date;
 	private Date expire_date;
 	private long clicks;
@@ -40,7 +37,7 @@ public class Url {
 	private static Date addDays(Date date,int days){
 		GregorianCalendar gregorianCalendar = new GregorianCalendar();
 		gregorianCalendar.setTime(date);
-		gregorianCalendar.add(gregorianCalendar.DATE,days);
+		gregorianCalendar.add(GregorianCalendar.DATE,days);
 		return gregorianCalendar.getTime();
 	}
 
@@ -66,14 +63,6 @@ public class Url {
 
 	public void setLong_url(String long_url) {
 		this.long_url = URI.create(long_url);
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user=user;
 	}
 
 	public Date getCreated_date() {
@@ -110,7 +99,6 @@ public class Url {
 				"id=" + id +
 				", short_url='" + shortUrl + '\'' +
 				", long_url=" + long_url +
-				", user=" + user +
 				", created_date=" + created_date +
 				", expire_date=" + expire_date +
 				", clicks=" + clicks +

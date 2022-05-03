@@ -1,24 +1,15 @@
-package com.ishitwa.url_shortner.model;
+package com.ishitwa.url_shortner.DTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.bytebuddy.utility.RandomString;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.transaction.annotation.Transactional;
+import com.ishitwa.url_shortner.model.Url;
+import com.ishitwa.url_shortner.model.User;
 
-import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 
-@Document("User")
-public class User {
-    @Id
+public class UserResponse {
     private UUID id;
-    /**
-     * here, id is working as a primary key.
-     */
     private String first_name;
     private String last_name;
     private String email;
@@ -27,32 +18,26 @@ public class User {
     private Date signup_date;
     private boolean isVerified;
     private String roles;
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<Url> urls_list;
     private long createdUrls;
     private String verificationToken;
+    private List<Url> urls_list;
 
-    /**
-     * There are only two roles : 1 for Normal User, 2 for Admin User.
-     * if the user is normal user then the value of role will have 1;
-     * if the user is admin then the role will have value 2.
-     */
-
-    public User(){
-        this.id = UUID.randomUUID();
-        this.signup_date = new Date();
-        this.isVerified = true;
-        this.createdUrls=0;
-        roles="ROLE_USER";
-        this.verificationToken = RandomString.make(20);
+    public UserResponse(User user,List<Url> urlList){
+        this.id=user.getId();
+        this.first_name=user.getFirst_name();
+        this.last_name=user.getLast_name();
+        this.email=user.getEmail();
+        this.username=user.getUsername();
+        this.password=user.getPassword();
+        this.signup_date=user.getSignup_date();
+        this.isVerified=user.isVerified();
+        this.roles=user.getRoles();
+        this.createdUrls=user.getCreatedUrls();
+        this.verificationToken=user.getVerificationToken();
+        this.urls_list=urlList;
     }
 
-    public User(String first_name, String last_name, String email, String username, String password) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
-        this.username = username;
-        this.password = password;
+    public UserResponse() {
     }
 
     public UUID getId() {
@@ -95,6 +80,14 @@ public class User {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Date getSignup_date() {
         return signup_date;
     }
@@ -127,19 +120,19 @@ public class User {
         this.createdUrls = createdUrls;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getVerificationToken() {
         return verificationToken;
     }
 
     public void setVerificationToken(String verificationToken) {
         this.verificationToken = verificationToken;
+    }
+
+    public List<Url> getUrls_list() {
+        return urls_list;
+    }
+
+    public void setUrls_list(List<Url> urls_list) {
+        this.urls_list = urls_list;
     }
 }

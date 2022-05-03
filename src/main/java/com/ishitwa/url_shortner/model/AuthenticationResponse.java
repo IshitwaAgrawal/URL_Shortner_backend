@@ -1,14 +1,16 @@
 package com.ishitwa.url_shortner.model;
 
+import com.ishitwa.url_shortner.DTO.UserResponse;
+
 public class AuthenticationResponse {
 
     private String jwt;
-    private User user;
+    private UserResponse user;
 
     public AuthenticationResponse() {
     }
 
-    public AuthenticationResponse(String jwt, User user) {
+    public AuthenticationResponse(String jwt, UserResponse user) {
         this.jwt = jwt;
         this.user = user;
     }
@@ -21,11 +23,11 @@ public class AuthenticationResponse {
         this.jwt = jwt;
     }
 
-    public User getUser() {
+    public UserResponse getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserResponse user) {
         this.user = user;
     }
 }

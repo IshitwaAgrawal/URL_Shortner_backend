@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
+@Repository
 public interface UrlRepo extends MongoRepository<Url, UUID> {
 
 
@@ -21,5 +22,4 @@ public interface UrlRepo extends MongoRepository<Url, UUID> {
 
         Url findUrlByShortUrl(String shortUrl);
         Url findUrlById(UUID id);
-        List<Url> findUrlByUser(User u);
 }

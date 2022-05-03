@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
-
+@Repository
 public interface UserRepo extends MongoRepository<User, UUID> {
 
-    public User findUserById(UUID id);
-    public User findUserByUsername(String username);
-    public User findUserByEmail(String username);
-    public User findUserByVerificationToken(String token);
+    User findUserById(UUID id);
+    User findUserByUsername(String username);
+    User findUserByEmail(String username);
+    User findUserByVerificationToken(String token);
 }

@@ -59,16 +59,14 @@ public class UrlController {
         UUID user_id = UtilFunctions.getUUID(id.getUser_id());
         UUID url_id = UtilFunctions.getUUID(id.getUrl_id());
         urlService.increment(url_id);
-        User u = userService.getUser(user_id);
-        messagingTemplate.convertAndSendToUser(id.getUser_id(),"/queue/clicks",new UserUrls(u.getUrls_list()));
+        messagingTemplate.convertAndSendToUser(id.getUser_id(),"/queue/clicks",new UserUrls(urlService.getUrlsList(user_id)));
     }
 
     @MessageMapping("/newurl")
     public void newUrlCreated(@Payload UserUrlId userid)throws Exception{
         Thread.sleep(600);
         UUID uid = UtilFunctions.getUUID(userid.getUser_id());
-        User u = userService.getUser(uid);
-        messagingTemplate.convertAndSendToUser(userid.getUser_id(),"/queue/newurl",new UserUrls(u.getUrls_list()));
+        messagingTemplate.convertAndSendToUser(userid.getUser_id(),"/queue/newurl",new UserUrls(urlService.getUrlsList(uid)));
     }
 
     @GetMapping("/url/{url}")

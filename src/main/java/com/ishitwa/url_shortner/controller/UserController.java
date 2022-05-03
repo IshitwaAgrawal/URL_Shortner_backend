@@ -1,8 +1,11 @@
 package com.ishitwa.url_shortner.controller;
 
+import com.ishitwa.url_shortner.DTO.UserResponse;
 import com.ishitwa.url_shortner.model.AuthenticationRequest;
 import com.ishitwa.url_shortner.model.AuthenticationResponse;
+import com.ishitwa.url_shortner.model.Url;
 import com.ishitwa.url_shortner.model.User;
+import com.ishitwa.url_shortner.service.UrlService;
 import com.ishitwa.url_shortner.service.UserService;
 import com.ishitwa.url_shortner.util.JwtUtil;
 import com.ishitwa.url_shortner.util.UtilFunctions;
@@ -28,6 +31,8 @@ public class UserController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private UrlService urlService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> addUser(@RequestBody User user){
@@ -52,8 +57,10 @@ public class UserController {
         }
         final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getUsername());
         User u = userService.getUser(userDetails.getUsername());
+        List<Url> urlList=urlService.getUrlsList(u.getId());
+        UserResponse userResponse=new UserResponse(u,urlList);
         String token = jwtUtil.generateToken(userDetails);
-        return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(token,u),HttpStatus.OK);
+        return new ResponseEntity<AuthenticationResponse>(new AuthenticationResponse(token,userResponse),HttpStatus.OK);
     }
 
     @GetMapping("/getAllUrls/{id}")
@@ -61,8 +68,8 @@ public class UserController {
         try {
             UUID uuid = UtilFunctions.getUUID(id);
 //            UUID uuid = UtilFunctions.getUUID2(id);
-            User user = userService.getUser(uuid);
-            return new ResponseEntity<>(user.getUrls_list(), HttpStatus.OK);
+//            User user = userService.getUser(uuid);
+            return new ResponseEntity<>(urlService.getUrlsList(uuid), HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NON_AUTHORITATIVE_INFORMATION);

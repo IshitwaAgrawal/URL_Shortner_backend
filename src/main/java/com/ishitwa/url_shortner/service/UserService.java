@@ -5,7 +5,9 @@ import com.ishitwa.url_shortner.Exceptions.FieldsNotHaveValue;
 import com.ishitwa.url_shortner.Exceptions.PasswordLength;
 import com.ishitwa.url_shortner.Exceptions.UserExists;
 import com.ishitwa.url_shortner.config.SecurityConstants;
+import com.ishitwa.url_shortner.model.Url;
 import com.ishitwa.url_shortner.model.User;
+import com.ishitwa.url_shortner.model.UserUrl;
 import com.ishitwa.url_shortner.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
@@ -32,8 +35,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepo userRepo;
-    @Autowired
-    private VerificationMail verificationMail;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
