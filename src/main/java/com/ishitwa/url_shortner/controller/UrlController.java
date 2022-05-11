@@ -16,6 +16,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.synth.SynthScrollBarUI;
 import java.net.URI;
 import java.util.UUID;
 
@@ -27,8 +28,6 @@ public class UrlController {
 
     @Autowired
     private UrlService urlService;
-    @Autowired
-    private UserService userService;
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
@@ -72,10 +71,13 @@ public class UrlController {
     @GetMapping("/url/{url}")
     public ResponseEntity<Void> redirect(@PathVariable String url){
         try {
+            System.out.println("*** URLCONTROLLER *** "+url);
             URI dest_url = urlService.getLongUrl(url);
+            System.out.println("*** URLCONTROLLER *** "+dest_url.toString());
             return ResponseEntity.status(HttpStatus.FOUND).location(dest_url).build();
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

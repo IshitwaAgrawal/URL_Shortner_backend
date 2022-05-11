@@ -1,9 +1,7 @@
 package com.ishitwa.url_shortner.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.net.URI;
@@ -15,8 +13,8 @@ import java.util.UUID;
 public class Url {
 	@Id
 	private UUID id;
-	private String short_url;
-	private URI long_url;
+	private String shortUrl;
+	private URI longUrl;
 	private Date created_date;
 	private Date expire_date;
 	private long clicks;
@@ -26,12 +24,12 @@ public class Url {
 		this.created_date=new Date();
 		int days_remaining=7;
 		this.expire_date=addDays(this.created_date,days_remaining);
-		this.short_url = RandomString.make(10);
+		this.shortUrl = RandomString.make(10);
 		this.clicks=0;
 	}
 
-	public Url(String long_url) {
-		this.long_url = URI.create(long_url);
+	public Url(String longUrl) {
+		this.longUrl = URI.create(longUrl);
 	}
 
 	private static Date addDays(Date date,int days){
@@ -50,19 +48,19 @@ public class Url {
 	}
 
 	public String getShortUrl() {
-		return short_url;
+		return shortUrl;
 	}
 
 	public void setShortUrl(String shortUrl) {
-		this.short_url = shortUrl;
+		this.shortUrl = shortUrl;
 	}
 
-	public URI getLong_url() {
-		return long_url;
+	public URI getLongUrl() {
+		return longUrl;
 	}
 
-	public void setLong_url(String long_url) {
-		this.long_url = URI.create(long_url);
+	public void setLongUrl(String longUrl) {
+		this.longUrl = URI.create(longUrl);
 	}
 
 	public Date getCreated_date() {
@@ -82,7 +80,7 @@ public class Url {
 	}
 
 	public void setLong_url(URI long_url) {
-		this.long_url = long_url;
+		this.longUrl = long_url;
 	}
 
 	public long getClicks() {
@@ -97,8 +95,8 @@ public class Url {
 	public String toString() {
 		return "Url{" +
 				"id=" + id +
-				", short_url='" + short_url + '\'' +
-				", long_url=" + long_url +
+				", short_url='" + shortUrl + '\'' +
+				", long_url=" + longUrl +
 				", created_date=" + created_date +
 				", expire_date=" + expire_date +
 				", clicks=" + clicks +

@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.UUID;
 
 
+@Repository
 public interface TelegramUrlRepo extends MongoRepository<TelegramUrl, UUID> {
 
     TelegramUrl findTelegramUrlByShortUrl(String url);
