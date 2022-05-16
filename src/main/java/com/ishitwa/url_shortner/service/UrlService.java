@@ -23,10 +23,10 @@ public class UrlService {
     private UserUrlService userUrlService;
     public ResponseEntity<?> registerNewUrl(Url url, UUID user_id)throws Exception{
         try{
-            String u = url.getLongUrl().toString();
+            String u = url.getLong_url().toString();
             if(!u.substring(0,8).equals("https://")){
                 u = "https://"+u;
-                url.setLongUrl(u);
+                url.setLong_url(u);
             }
             User k = userService.getUser(user_id);
 //            url.setUser(k);
@@ -67,8 +67,8 @@ public class UrlService {
     public URI getLongUrl(String url)throws Exception{
         System.out.println("*** URLSERVICE *** " + url);
         Url k = urlRepo.findUrlByShortUrl(url);
-        System.out.println("*** URLSERVICE *** "+k.getLongUrl());
-        return k.getLongUrl();
+        System.out.println("*** URLSERVICE *** "+k.getLong_url());
+        return k.getLong_url();
     }
 
     public void increment(UUID id)throws Exception{

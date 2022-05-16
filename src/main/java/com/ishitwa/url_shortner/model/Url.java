@@ -14,7 +14,7 @@ public class Url {
 	@Id
 	private UUID id;
 	private String shortUrl;
-	private URI longUrl;
+	private URI long_url;
 	private Date created_date;
 	private Date expire_date;
 	private long clicks;
@@ -28,8 +28,8 @@ public class Url {
 		this.clicks=0;
 	}
 
-	public Url(String longUrl) {
-		this.longUrl = URI.create(longUrl);
+	public Url(String long_url) {
+		this.long_url = URI.create(long_url);
 	}
 
 	private static Date addDays(Date date,int days){
@@ -55,12 +55,12 @@ public class Url {
 		this.shortUrl = shortUrl;
 	}
 
-	public URI getLongUrl() {
-		return longUrl;
+	public URI getLong_url() {
+		return long_url;
 	}
 
-	public void setLongUrl(String longUrl) {
-		this.longUrl = URI.create(longUrl);
+	public void setLong_url(String long_url) {
+		this.long_url = URI.create(long_url);
 	}
 
 	public Date getCreated_date() {
@@ -80,7 +80,7 @@ public class Url {
 	}
 
 	public void setLong_url(URI long_url) {
-		this.longUrl = long_url;
+		this.long_url = long_url;
 	}
 
 	public long getClicks() {
@@ -96,7 +96,7 @@ public class Url {
 		return "Url{" +
 				"id=" + id +
 				", short_url='" + shortUrl + '\'' +
-				", long_url=" + longUrl +
+				", long_url=" + long_url +
 				", created_date=" + created_date +
 				", expire_date=" + expire_date +
 				", clicks=" + clicks +
