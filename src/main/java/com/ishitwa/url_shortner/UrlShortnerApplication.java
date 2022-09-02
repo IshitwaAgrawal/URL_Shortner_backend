@@ -47,8 +47,11 @@ public class UrlShortnerApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedOrigins(
                         "http://localhost:8080/",
-                        "https://ishitwaagrawal.github.io/"
-                );
+                        "https://ishitwaagrawal.github.io/",
+			"http://server2.ishitw.me/",
+			"http://urlshort.ishitw.me/",
+			"http://172.105.51.155/"
+                ).allowedMethods("GET","POST","PUT","DELETE");
             }
         };
     }

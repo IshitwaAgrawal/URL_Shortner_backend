@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+ app:
+  build: ../URL_Shortner_backend
+  restart: on-failure
+  env_file: ./.env
+  ports:
+   - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+  environment:
+   SPRING_APPLICATION_JSON: '{
+     "server.port":"6789",
+     "spring.data.mongodb.uri":"mongodb+srv://user007:<password>@mydb.fxuqi.mongodb.net/urlShortner?retryWrites=true&w=majority",
+     "spring.data.mongodb.database":"urlShortner"
+   }'
+  stdin_open: true
+  tty: true
