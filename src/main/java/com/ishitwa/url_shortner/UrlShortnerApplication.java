@@ -50,7 +50,8 @@ public class UrlShortnerApplication {
                         "https://ishitwaagrawal.github.io/",
 			"http://server2.ishitw.me/",
 			"http://urlshort.ishitw.me/",
-			"http://172.105.51.155/"
+			"http://172.105.51.155/",
+			"http://ishitw.me:8080/"
                 ).allowedMethods("GET","POST","PUT","DELETE");
             }
         };
