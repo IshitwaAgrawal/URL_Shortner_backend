@@ -9,7 +9,7 @@ services:
   environment:
    SPRING_APPLICATION_JSON: '{
      "server.port":"6789",
-     "spring.data.mongodb.uri":"mongodb+srv://user007:<password>@mydb.fxuqi.mongodb.net/urlShortner?retryWrites=true&w=majority",
+     "spring.data.mongodb.uri":"mongodb+srv://user007:$PASSWORD@mydb.fxuqi.mongodb.net/urlShortner?retryWrites=true&w=majority",
      "spring.data.mongodb.database":"urlShortner"
    }'
   stdin_open: true
